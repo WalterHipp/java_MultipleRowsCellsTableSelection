@@ -83,6 +83,10 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
         cellCheck.addActionListener(this);
         myMod = new MyTableModel();
         //javax.swing.JTable table = new javax.swing.JTable(myMod);
+        //jTable1.getColumnModel().getColumn(jTable1.getSelectedColumn())
+                //.setCellRenderer(new StatusColumnCellRenderer());
+        jTable1.setDefaultRenderer(Object.class,
+                    new MySelectionRenderer());
         return myMod;
     }
     
@@ -173,19 +177,26 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
                         getLeadSelectionIndex()));
         int[] rselection = jTable1.getSelectedRows();
         int[] cselection = jTable1.getSelectedColumns();
+        System.out.println("cselection " + cselection.length);
         int rBegin = jTable1.getSelectionModel().getLeadSelectionIndex();
         if (rselection.length == 1)
             rBegin ++;
-        for (int i = 0; i< rselection.length; i++)
-            output.append("\nselected row[" + (i + rBegin) + "]\n");
-        for (int i = 0; i< cselection.length; i++)
-            output.append("selected col[" + i + "]\n");
         int row = jTable1.getSelectionModel().getLeadSelectionIndex();
         int col = jTable1.getColumnModel().getSelectionModel().
                         getLeadSelectionIndex();
+        //for (int i = 0; i< rselection.length; i++)
+        /*System.out.println("row 0 " + rselection[0] + " last" 
+                + rselection[rselection.length - 1] + " length " + rselection.length);
+        for (int i = rselection[0]; i <= rselection[rselection.length - 1]; i++)
+            System.out.println("i " + i);*/
+        for (int i = 0; i < rselection.length; i++)
+            output.append("\nselected row(s), row number " + (rselection[i] + 1));
+            //System.out.println("row[ " + i + "] " + rselection[i]);
+        for (int i = 0; i < cselection.length; i++)
+            output.append("\nselected col[" + col + "]\n");
         output.append("Row: " + (row + 1) + " Column: " + col);
         output.append("\n");
-        output.append(myMod.getValueAt(row, col) + "\n");
+        output.append("selected cell: " + myMod.getValueAt(row, col) + "\n");
         output.append("\n");
     }
 
@@ -683,5 +694,48 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
             outputSelection();
         }
     
+    }
+    
+    class MySelectionRenderer 
+    implements javax.swing.table.TableCellRenderer
+    {
+        private javax.swing.JLabel   label = new javax.swing.JLabel();
+        private java.awt.Color  lightBlue = new java.awt.Color(160, 160, 255);
+        private java.awt.Color  darkBlue  = new java.awt.Color( 64,  64, 128);
+        private String  tipTxt = null;
+    
+        public boolean coloredTest       = false;
+        public boolean mustSelect = false;
+        public java.util.ArrayList<Integer> selectionList = 
+            new java.util.ArrayList<Integer>();
+    
+        public java.awt.Component getTableCellRendererComponent(
+            javax.swing.JTable table, 
+            Object value, boolean isSelected, boolean hasFocus,
+            int row, int column)
+        {
+            //Label erzeugen
+            if (value == null)
+                label.setText("");
+            else label.setText(value.toString());
+                label.setOpaque(true);
+            javax.swing.border.Border b = 
+                javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1);
+            label.setBorder(b);
+            label.setFont(table.getFont());
+            label.setForeground(table.getForeground());
+            label.setToolTipText(tipTxt);
+            label.setBackground(java.awt.Color.white);
+            if (hasFocus)    
+            { 
+                label.setBackground(java.awt.Color.GREEN); //(darkBlue);
+                label.setForeground(java.awt.Color.RED);
+            }
+            else if (isSelected)
+            {
+                label.setBackground(lightBlue);
+            }
+            return label;
+        }
     }
 }
