@@ -33,15 +33,13 @@ public class MultiSelColor extends javax.swing.JPanel {
         setEmtyTable(jTable1, 2022); // used with calendar table
         selectionOffset = 1;
         jTable1.setDefaultRenderer(Object.class,
-                    new MultipleSelectionRenderer());
+                    new MultipleSelectionRenderer(3));
         jTable1.setColumnSelectionAllowed(false);
         jTable1.setRowSelectionAllowed(false);
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         MultipleRowsCellsTableSelection mrc = 
-                new MultipleRowsCellsTableSelection(jTextArea1,2);
+                new MultipleRowsCellsTableSelection(jTextArea1,3);
         mrc.setTblListeners(jTable1);
-        jTable1.setDefaultRenderer(Object.class,
-                    new MultipleSelectionRenderer());
         if (main.chkBox1.isSelected())
                 MultipleSelectionRenderer.coloredTest = true;
         else

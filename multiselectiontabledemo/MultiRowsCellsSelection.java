@@ -1,22 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package multiselectiontabledemo;
-
 
 /**
  *
- * @author walter hipp
+ * @author Walter
  */
-public class MultipleRowsCellsTableSelection
+public class MultiRowsCellsSelection 
 {
-    private int aktRow = -1, aktColumn = -1;
-    private int tbl;
-    private javax.swing.JTextArea   output = null;
+    int aktRow = -1, aktColumn = -1;
+    javax.swing.JTextArea   output = null;
     
     String newline = System.getProperty("line.separator");
     
-    public  MultipleRowsCellsTableSelection(javax.swing.JTextArea o, int _tbl)
+    public MultiRowsCellsSelection(javax.swing.JTextArea o, int tbl)
     {
         output = o;
-        tbl = _tbl;
     }
     
     private void test(String s, javax.swing.JTable table)
@@ -43,7 +44,7 @@ public class MultipleRowsCellsTableSelection
         if (table != null)
         {
             output.append("or in other words:" + newline 
-                    + "you selected the following:" + newline);
+                + "you selected the following:" + newline);
             int rows = MultipleSelectionRenderer.selectionList.get(3) -
                     MultipleSelectionRenderer.selectionList.get(0);
             int b = MultipleSelectionRenderer.selectionList.get(0);
@@ -56,14 +57,11 @@ public class MultipleRowsCellsTableSelection
             {
                 if (i == b)
                 {
-                    if (tbl == 3)
-                    {
-                        int row = MultipleSelectionRenderer.selectionList.get(0);
-                        String m = table.getValueAt(row, 0).toString();
-                        output.append(m + " ");
-                    }
+                    int row = MultipleSelectionRenderer.selectionList.get(0);
+                    String m = table.getValueAt(row, 0).toString();
+                    //output.append(m + " ");
                     for (int ii = rbegin; ii <= x; ii++)
-                            output.append(table.getValueAt(b, ii) + " ");
+                        output.append(table.getValueAt(b, ii) + " ");
                     output.append(newline);
                 }
                 else if (i > b && i < e)
@@ -78,7 +76,6 @@ public class MultipleRowsCellsTableSelection
                 output.append(table.getValueAt(e, ii) + " ");
             }
         }
-        
     }
     
     private void moveLeft(int r, int c)

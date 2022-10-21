@@ -5,6 +5,7 @@
 package multiselectiontabledemo;
 
 import javax.swing.table.AbstractTableModel;
+import static multiselectiontabledemo.MultiSelColor.selectionOffset;
 
 /**
  *
@@ -41,17 +42,17 @@ public class MultiSelNormal extends javax.swing.JPanel {
     
     private MyTableModel2 Table2ModOrdi()
     {
+        selectionOffset = -1;
+        jTable1.setDefaultRenderer(Object.class,
+                    new MultipleSelectionRenderer(2));
         jTable1.setColumnSelectionAllowed(false);
         jTable1.setRowSelectionAllowed(false);
-        //TablePane.setPreferredSize(new java.awt.Dimension(420, 380));
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        //MultiRowsCellsSelection mrc = 
+         //       new MultiRowsCellsSelection(jTextArea1,2);
         MultipleRowsCellsTableSelection mrc = 
-                new MultipleRowsCellsTableSelection(jTextArea1, 1);
+                new MultipleRowsCellsTableSelection(jTextArea1,2);
         mrc.setTblListeners(jTable1);
-        jTable1.setDefaultRenderer(Object.class,
-                    new MultipleSelectionRenderer());
-        jTable1.setPreferredScrollableViewportSize(new java.awt.Dimension(500, 70));
-        jTable1.setFillsViewportHeight(true);
         if (main.chkBox1.isSelected())
                 MultipleSelectionRenderer.coloredTest = true;
         else
@@ -174,6 +175,7 @@ public class MultiSelNormal extends javax.swing.JPanel {
             }
 
             public Object getValueAt(int row, int col) {
+                //System.out.println("val at row " + row + " col " + col);
                 return tableData[row][col];
             }
              /*

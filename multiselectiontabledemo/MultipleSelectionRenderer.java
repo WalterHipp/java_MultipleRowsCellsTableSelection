@@ -1,11 +1,12 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package multiselectiontabledemo;
 
 /**
  *
- * @author walter hipp
- * based on ColoredTableRenderer,
- * fount at:
- * http://www.java2s.com/Code/Java/Swing-JFC/ColoredTableCellRenderer.htm
+ * @author Walter
  */
 public class MultipleSelectionRenderer 
     implements javax.swing.table.TableCellRenderer
@@ -19,6 +20,12 @@ public class MultipleSelectionRenderer
     public static boolean mustSelect = false;
     public static java.util.ArrayList<Integer> selectionList = 
             new java.util.ArrayList<Integer>();
+    private int tbl;
+    
+    public MultipleSelectionRenderer(int _tbl)
+    {
+        tbl = _tbl;
+    }
     
     public java.awt.Component getTableCellRendererComponent(
             javax.swing.JTable table, 
@@ -113,3 +120,4 @@ public class MultipleSelectionRenderer
         tipTxt = txt;
     }
 }
+
